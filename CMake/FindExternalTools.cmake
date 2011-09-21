@@ -17,7 +17,6 @@ macro( FindSlicerToolsMacro path name )
   endif(NOT ${path} )
 endmacro( FindSlicerToolsMacro )
 
-FindSlicerToolsMacro( HistogramMatchingTOOL HistogramMatching )
 FindSlicerToolsMacro( BRAINSFitTOOL BRAINSFit )
 FindSlicerToolsMacro( BRAINSDemonWarpTOOL BRAINSDemonWarp )
 FindSlicerToolsMacro( ResampleDTITOOL ResampleDTI )

@@ -1,6 +1,5 @@
 #define ScriptDir "@EXECUTABLE_OUTPUT_PATH@"
 #define dtiprocessTool "@dtiprocessTOOL@"
-#define HistogramMatchingTool "@HistogramMatchingTOOL@"
 #define BRAINSFitTool "@BRAINSFitTOOL@"
 #define BRAINSDemonWarpTool "@BRAINSDemonWarpTOOL@"
 #define ResampleDTITool "@ResampleDTITOOL@"

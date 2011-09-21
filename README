@@ -4,9 +4,9 @@ DTI-Reg is an open-source C++ application that performs pair-wise DTI registrati
 
 Method 1:
  - Scalar map FA computation via dtiprocess
- - FA normalization via HistogramMatching
  - Optional: Linear registration via BRAINSFit (None, Rigid, Affine -default-)
  - Optional: Warping via BRAINSFit/BRAINSDemonWarp (BSpline, Diffeomorphic, LogDemons -default-) 
+    - Histogram matching is enabled
     - The linear registration is used to initialize the deformation field.
  - DTI resampling via ResampleDTI
 

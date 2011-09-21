@@ -32,11 +32,11 @@ int main (int argc, char *argv[])
   std::cout<<"DTI-Reg..."<<std::endl;
 
   if( fixedVolume.empty() || movingVolume.empty() )
-  {
-    std::cerr << "Error: Fixed and moving volumes must be set!" << std::endl ;
-    std::cerr << "To display help, type: DTI-Reg --help"<<std::endl;
-    return EXIT_FAILURE ;
-  }  
+    {
+      std::cerr << "Error: Fixed and moving volumes must be set!" << std::endl ;
+      std::cerr << "To display help, please type: DTI-Reg --help"<<std::endl;
+      return EXIT_FAILURE ;
+    }  
   if (!method.compare("useTensor"))
     {
       std::cout<<"Computational method not implemented yet..."<<std::endl;
@@ -52,12 +52,21 @@ int main (int argc, char *argv[])
   std::string BatchMakeScriptFile = "DTI-Reg.bms";
   std::ofstream file( BatchMakeScriptFile.c_str());
 
-  file <<"# I/O Parameters"<<std::endl;
+  file <<"# Inputs"<<std::endl;
   file <<"set (fixedVolume "<<fixedVolume<<")"<<std::endl;
   file <<"set (movingVolume "<<movingVolume<<")"<<std::endl;
-  file <<"set (outputVolume "<<outputVolume<<")"<<std::endl;
 
-  file <<"# Registration parameters"<<std::endl;
+  file <<"\n# Optional input mask volumes"<<std::endl;
+  if (fixedMaskVolume.compare(""))
+    file <<"set (fixedMaskVolume "<<fixedMaskVolume<<")"<<std::endl;
+  else
+    file <<"set (fixedMaskVolume \'\')"<<std::endl;
+  if (movingMaskVolume.compare(""))
+    file <<"set (movingMaskVolume "<<movingMaskVolume<<")"<<std::endl;
+  else
+    file <<"set (movingMaskVolume \'\')"<<std::endl;
+
+  file <<"\n# Registration type"<<std::endl;
   file <<"set (linearRegType "<<linearRegType<<")"<<std::endl;
   if (!linearRegType.compare("None"))
     file <<"set (IsLinearRegistration 0)"<<std::endl;
@@ -70,18 +79,45 @@ int main (int argc, char *argv[])
   else
     file <<"set (IsDemonsWarping 1)"<<std::endl;
   
-  file <<"# Advanced registration parameters"<<std::endl;
-  
-  if (fixedMaskVolume.compare(""))
-    file <<"set (fixedMaskVolume "<<fixedMaskVolume<<")"<<std::endl;
+  file <<"\n# Registration initialization"<<std::endl;
+    file <<"set (initializeTransformMode "<<initializeTransformMode<<")"<<std::endl;
+  if (initialTransform.compare(""))
+    file <<"set (initialTransform "<<initialTransform<<")"<<std::endl;
   else
-    file <<"set (fixedMaskVolume \'\')"<<std::endl;
-  if (movingMaskVolume.compare(""))
-    file <<"set (movingMaskVolume "<<movingMaskVolume<<")"<<std::endl;
+    file <<"set (initialTransform \'\')"<<std::endl;
+  if (initialDeformationField.compare(""))
+    file <<"set (initialDeformationField "<<initialDeformationField<<")"<<std::endl;
   else
-    file <<"set (movingMaskVolume \'\')"<<std::endl;
+    file <<"set (initialDeformationField \'\')"<<std::endl;
 
-  file <<"# Advanced Histogram matching parameters"<<std::endl;
+  file <<"\n# Outputs"<<std::endl;
+  if (outputVolume.compare(""))
+  file <<"set (outputVolume "<<outputVolume<<")"<<std::endl;
+  else
+    file <<"set (outputVolume \'\')"<<std::endl;
+  
+  if (outputTransform.compare(""))
+    file <<"set (outputTransform "<<outputTransform<<")"<<std::endl;
+  else
+    file <<"set (outputTransform \'\')"<<std::endl;
+  if (outputDeformationFieldVolume.compare(""))
+    file <<"set (outputDeformationFieldVolume "<<outputDeformationFieldVolume<<")"<<std::endl;
+  else
+    file <<"set (outputDeformationFieldVolume \'\')"<<std::endl;
+  if (outputFixedFAVolume.compare(""))
+    file <<"set (outputFixedFAVolume "<<outputFixedFAVolume<<")"<<std::endl;
+  else
+    file <<"set (outputFixedFAVolume \'\')"<<std::endl;
+  if (outputMovingFAVolume.compare(""))
+    file <<"set (outputMovingFAVolume "<<outputMovingFAVolume<<")"<<std::endl;
+  else
+    file <<"set (outputMovingFAVolume \'\')"<<std::endl;
+  if (outputResampledFAVolume.compare(""))
+    file <<"set (outputResampledFAVolume "<<outputResampledFAVolume<<")"<<std::endl;
+  else
+    file <<"set (outputResampledFAVolume \'\')"<<std::endl;
+  
+  file <<"\n# Advanced Histogram matching parameters"<<std::endl;
   file <<"set (numberOfHistogramLevels "<<numberOfHistogramLevels<<")"<<std::endl;
   file <<"set (numberOfMatchPoints "<<numberOfMatchPoints<<")"<<std::endl;
 
