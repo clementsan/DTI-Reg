@@ -121,17 +121,12 @@ int main (int argc, char *argv[])
   file <<"set (numberOfHistogramLevels "<<numberOfHistogramLevels<<")"<<std::endl;
   file <<"set (numberOfMatchPoints "<<numberOfMatchPoints<<")"<<std::endl;
 
-  file <<"#External Tools"<<std::endl;
+  file <<"\n#External Tools"<<std::endl;
   std::string dtiprocessCmd = dtiprocessTool;
   if( SetPath(dtiprocessCmd, "dtiprocess" , path_vec ) )
     return EXIT_FAILURE;
   else
     file <<"set (dtiprocessCmd "<<dtiprocessCmd<<")"<<std::endl;
-  std::string HistogramMatchingCmd = HistogramMatchingTool;
-  if( SetPath(HistogramMatchingCmd, "HistogramMatching" , path_vec ) )
-    return EXIT_FAILURE;
-  else
-    file <<"set (HistogramMatchingCmd "<<HistogramMatchingCmd<<")"<<std::endl;
   std::string BRAINSFitCmd = BRAINSFitTool;
   if( SetPath(BRAINSFitCmd, "BRAINSFit" , path_vec ) )
     return EXIT_FAILURE;
@@ -149,6 +144,7 @@ int main (int argc, char *argv[])
     file <<"set (ResampleDTICmd "<<ResampleDTICmd<<")"<<std::endl;
 
   // Include main BatchMake script
+  file <<"\n#Include main batchMake script"<<std::endl;
   file <<"include("<<ScriptDir<<"/DTI-Reg_Scalar.bms)"<<std::endl;
 
   file.close();
